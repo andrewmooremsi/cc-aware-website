@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission — CC Aware | Motorola Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .phases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .phase-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .phase-card-header { background: var(--blue); color: var(--white); padding: 1rem 1.5rem; }
+    .phase-card-header h3 { font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .phase-card-body { padding: 1.5rem; }
+    .phase-ops h5 { font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gray); margin-bottom: .55rem; }
+    .phase-ops ul { list-style: none; margin-bottom: 1rem; }
+    .phase-ops ul li { font-size: .87rem; color: var(--dark); padding: .28rem 0; border-bottom: 1px solid var(--border); }
+    .phase-ops ul li:last-child { border-bottom: none; }
+    .phase-feature { background: #e3edf9; border-radius: 6px; padding: .55rem .85rem; font-size: .76rem; color: var(--blue-dark); }
+    .phase-feature span { font-weight: 700; }
+    .phase-outcome { margin-top: 1rem; background: var(--light); border-radius: 6px; padding: .7rem 1rem; font-size: .82rem; color: var(--mid); border-left: 3px solid var(--blue); }
+    .phase-outcome strong { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); margin-bottom: .25rem; }
+    .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .eco-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: box-shadow .2s, transform .2s; }
+    .eco-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,.08); transform: translateY(-2px); }
+    .eco-icon { font-size: 1.8rem; width: 58px; height: 58px; background: #ddeeff; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .eco-card h4 { font-size: .95rem; margin-bottom: .35rem; }
+    .eco-card p  { font-size: .82rem; color: var(--gray); }
+    .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .video-section { background: var(--blue-deeper); padding: 3rem 0; }
+    @media (max-width: 900px) {
+      .video-section { padding: 2.5rem 0; }
+      .video-card-bg { aspect-ratio: unset !important; height: 240px; display: flex; align-items: center; justify-content: center; }
+      .video-card-inner { position: static; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; padding: 1rem; width: 100%; }
+      .video-card-label { display: none; }
+      .video-play-circle { width: 60px; height: 60px; margin: 0 !important; flex-shrink: 0; }
+      .video-play-circle svg { width: 22px; height: 22px; }
+      .video-card-title { font-size: .95rem; margin: 0 !important; text-align: center; }
+      .video-card-sub { font-size: .75rem; margin: 0 !important; text-align: center; }
+      .video-yt-badge { display: none; }
+    }
+    .video-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--red-light); margin-bottom: .75rem; }
+    .video-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: var(--white); margin-bottom: .75rem; line-height: 1.15; }
+    .video-subtitle { font-size: 1rem; color: rgba(255,255,255,.65); max-width: 560px; margin-bottom: 2rem; line-height: 1.7; }
+    .video-card-link { display: block; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,.5); text-decoration: none; position: relative; }
+    .video-card-bg { background: linear-gradient(160deg, #1a0a02 0%, #2d1204 30%, #3d1a06 50%, #1f0e03 75%, #120802 100%); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .video-card-bg::before { content: ''; position: absolute; inset: 0; background:
+      radial-gradient(ellipse 60% 55% at 50% 45%, rgba(255,100,0,.45) 0%, rgba(200,50,10,.25) 40%, transparent 70%),
+      radial-gradient(ellipse 35% 30% at 20% 75%, rgba(255,140,0,.2) 0%, transparent 55%),
+      radial-gradient(ellipse 30% 25% at 80% 20%, rgba(180,60,0,.15) 0%, transparent 50%); }
+    .video-card-bg::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.15); }
+    .video-card-inner { position: relative; z-index: 1; text-align: center; padding: 2rem; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .video-card-label { font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 1.25rem; }
+    .video-play-circle { width: 80px; height: 80px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto .85rem; box-shadow: 0 0 0 12px rgba(211,47,47,.2), 0 12px 32px rgba(211,47,47,.4); transition: transform .2s, box-shadow .2s; }
+    .video-card-link:hover .video-play-circle { transform: scale(1.1); box-shadow: 0 0 0 16px rgba(211,47,47,.25), 0 16px 40px rgba(211,47,47,.5); }
+    .video-play-circle svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
+    .video-card-title { font-size: clamp(.95rem, 2.5vw, 1.2rem); font-weight: 700; color: white; margin-bottom: .4rem; text-align: center; }
+    .video-card-sub { font-size: .8rem; color: rgba(255,255,255,.5); text-align: center; }
+    .video-yt-badge { position: absolute; bottom: 1rem; right: 1rem; background: rgba(0,0,0,.65); color: rgba(255,255,255,.85); font-size: .7rem; font-weight: 700; letter-spacing: .06em; padding: .3rem .75rem; border-radius: 4px; text-transform: uppercase; z-index: 2; display: flex; align-items: center; gap: .4rem; }
+    .video-yt-badge svg { width: 14px; height: 14px; fill: #ff0000; }
+    .challenge-big-num { font-size: clamp(5rem, 12vw, 9rem); font-weight: 900; color: var(--blue); line-height: 1; }
+    .challenge-big-label { font-size: .88rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gray); margin-top: .25rem; }
+    .challenge-cards { display: flex; flex-direction: column; gap: 1.25rem; }
+    .challenge-card { border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; display: flex; align-items: flex-start; gap: 1.1rem; }
+    .challenge-icon { width: 44px; height: 44px; border-radius: 10px; background: #ddeeff; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+    .challenge-card h4 { font-size: .95rem; margin-bottom: .3rem; }
+    .challenge-card p  { font-size: .87rem; color: var(--gray); }
+    .proof-section { background: var(--blue-deeper); padding: 5rem 0; }
+    .pull-quote { border-left: 4px solid var(--red-light); padding: 1.5rem 2rem; margin-bottom: 3rem; }
+    .pull-quote-text { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 700; color: var(--white); line-height: 1.5; margin-bottom: .75rem; font-style: italic; }
+    .pull-quote-source { font-size: .75rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--red-light); }
+    .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .proof-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 1.75rem; }
+    .proof-card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .proof-card h4 { color: var(--white); font-size: .95rem; margin-bottom: .6rem; }
+    .proof-card p { font-size: .85rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+    .proof-source-bar { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .proof-source-bar p { font-size: .78rem; color: rgba(255,255,255,.4); line-height: 1.6; }
+    .proof-source-bar strong { color: rgba(255,255,255,.65); }
+    .deploy-section { background: var(--light); padding: 5rem 0; }
+    .deploy-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(21,101,192,.1); }
+    .deploy-card-header { background: linear-gradient(135deg, var(--blue-dark), var(--blue)); padding: 2rem 2.5rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .deploy-card-header-left h3 { color: var(--white); font-size: 1.15rem; font-weight: 800; margin-bottom: .3rem; }
+    .deploy-card-header-left p { color: rgba(255,255,255,.65); font-size: .82rem; }
+    .deploy-stats-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .deploy-stat { text-align: center; }
+    .deploy-stat-num { font-size: 2rem; font-weight: 900; color: var(--white); line-height: 1; }
+    .deploy-stat-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.55); margin-top: .2rem; }
+    .deploy-card-body { padding: 2rem 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .deploy-quote { border-left: 3px solid var(--blue); padding-left: 1.25rem; }
+    .deploy-quote p { font-size: .9rem; color: var(--mid); line-height: 1.7; font-style: italic; margin-bottom: .6rem; }
+    .deploy-quote cite { font-size: .75rem; font-weight: 700; color: var(--blue); font-style: normal; }
+    .deploy-networks h5 { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--gray); margin-bottom: .85rem; }
+    .deploy-network-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .deploy-network-list li { font-size: .85rem; color: var(--mid); display: flex; gap: .6rem; align-items: flex-start; }
+    .deploy-network-list li::before { content: '▸'; color: var(--blue); flex-shrink: 0; font-weight: 700; }
+    @media (max-width: 760px) {
+      .deploy-card-header { flex-direction: column; }
+      .deploy-card-body { grid-template-columns: 1fr; }
+      .deploy-stats-row { gap: 1.25rem; }
+      .deploy-stat-num { font-size: 1.6rem; }
+    }
+    @media (max-width: 900px) {
+      .phases-grid, .ecosystem-grid, .challenge-grid, .proof-grid { grid-template-columns: 1fr; }
+      .pull-quote { padding: 1.25rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="motorola-logo.png" alt="Motorola Solutions" class="nav-logo-img" />
+      <div class="nav-logo-divider"></div>
+      <div><div class="nav-logo-text">CommandCentral Aware</div><div class="nav-logo-sub">Motorola Solutions</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="mission.html" class="active">Mission</a>
+      <a href="compare.html">Compare</a>
+      <a href="campaign.html">Campaign</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-cta">
+      <a href="campaign.html" class="btn btn--outline-white" style="padding:.5rem 1.1rem;font-size:.83rem;">Learn More</a>
+      <a href="team.html#cta" class="btn btn--red" style="padding:.5rem 1.1rem;font-size:.83rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="page-hero-eyebrow">Mission Driven Choice</div>
+    <h1>Protecting <span>Communities.</span><br>Scaling Profitability.</h1>
+    <p>Three operational phases of wildfire response — and how CC Aware's feature set maps directly to life-saving outcomes at each stage.</p>
+    <div class="page-hero-btns">
+      <a href="#phases" class="btn btn--red">View Phases</a>
+      <a href="#ecosystem" class="btn btn--outline-white">Explore Ecosystem</a>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="container">
+    <div class="video-eyebrow">See It In Action</div>
+    <h2 class="video-title">Wildfire Response, Live</h2>
+    <p class="video-subtitle">Watch how CommandCentral Aware unifies situational intelligence during an active wildfire incident — from pre-fire positioning to post-incident reporting.</p>
+    <a class="video-card-link" href="https://www.youtube.com/watch?v=i0QU-1Onnow" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+      <div class="video-card-bg">
+        <div class="video-card-inner">
+          <div class="video-card-label">Motorola Solutions · Wildfire Response</div>
+          <div class="video-play-circle">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="video-card-title">Wildfire Response</div>
+          <div class="video-card-sub">Tap to watch on YouTube ▸</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="section section--light" id="challenge">
+  <div class="container">
+    <div class="challenge-grid">
+      <div>
+        <div class="tag">The Challenge</div>
+        <div class="challenge-big-num">1.5M</div>
+        <div class="challenge-big-label">Acres Burned Annually in California</div>
+        <p style="margin-top:1.5rem;color:var(--gray);font-size:.97rem;line-height:1.75;">California wildfires now outpace traditional alert systems. In the last three seasons, 1.5 million acres were lost — 60% in high-WUI zones where communication is most difficult and multi-agency coordination breaks down fastest.</p>
+        <p style="margin-top:1rem;color:var(--gray);font-size:.97rem;line-height:1.75;">Fast-moving disasters like the Ventura County wildfires revealed how dangerous siloed systems are when fire, police, and emergency management agencies have no shared operational picture.</p>
+      </div>
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <div class="challenge-icon">📡</div>
+          <div><h4>Communication Dead Zones</h4><p>Radio coverage fails in high-WUI terrain. Broadband-only solutions collapse at the worst possible moment. CC Aware maintains a radio lifeline even when broadband is unavailable.</p></div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-icon">🗃️</div>
+          <div><h4>Inter-Agency Information Silos</h4><p>Fire, police, EMS, and air operations run on separate CAD systems, radio channels, and video platforms — creating critical blind spots during multi-unit incidents.</p></div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-icon">🧠</div>
+          <div><h4>Dispatch Cognitive Overload</h4><p>Analysts monitoring 10–20 separate screens make slower, error-prone decisions under stress. CC Aware collapses this into a single view with automated rules.</p></div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-icon">⏱️</div>
+          <div><h4>The 12–18 Month Procurement Wall</h4><p>Government software procurement typically takes over a year. CC Aware bypasses this as a cloud upgrade to existing Motorola hardware — dramatically compressing the sales cycle.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<section class="section" id="phases">
+  <div class="container">
+    <div class="tag">Mission Driven Choice</div>
+    <h2 class="section-title">Three Phases of Wildfire Response</h2>
+    <p class="section-subtitle">CC Aware's feature set maps directly to pre-fire readiness, active incident response, and post-fire recovery — protecting communities in the moment and scaling profitability for the future.</p>
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-card-header"><h3>Phase 1 — Pre-Fire Readiness</h3></div>
+        <div class="phase-card-body">
+          <div class="phase-ops">
+            <h5>Operational Focus</h5>
+            <ul>
+              <li>Predictive fire perimeter mapping</li>
+              <li>Unit pre-positioning via GPS</li>
+              <li>Weather &amp; wind layer streaming</li>
+              <li>ICEYE satellite risk overlays</li>
+            </ul>
+          </div>
+          <div class="phase-feature">Enabled by: <span>"Single Pane of Glass"</span></div>
+          <div class="phase-outcome"><strong>Expected Outcome</strong>Predictive fire perimeters &amp; immediate pre-positioning of firefighters before ignition spreads</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-header"><h3>Phase 2 — Real-Time Response</h3></div>
+        <div class="phase-card-body">
+          <div class="phase-ops">
+            <h5>Operational Focus</h5>
+            <ul>
+              <li>Live drone &amp; fixed camera streams</li>
+              <li>Geospatial resource tracking</li>
+              <li>Live markup &amp; shared annotation</li>
+              <li>Multi-agency Missions workflows</li>
+            </ul>
+          </div>
+          <div class="phase-feature">Enabled by: <span>Enhanced View &amp; AI Assist</span></div>
+          <div class="phase-outcome"><strong>Expected Outcome</strong>Coordinated air attacks, active spot-fire locating, &amp; real-time evacuation routing</div>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-header"><h3>Phase 3 — Post-Fire Recovery</h3></div>
+        <div class="phase-card-body">
+          <div class="phase-ops">
+            <h5>Operational Focus</h5>
+            <ul>
+              <li>CJIS-compliant cloud evidence retention</li>
+              <li>Auto-generated mission summary logs</li>
+              <li>Multi-agency audit trails</li>
+              <li>Grant &amp; ROI documentation</li>
+            </ul>
+          </div>
+          <div class="phase-feature">Enabled by: <span>Cloud-Based &amp; Secure</span></div>
+          <div class="phase-outcome"><strong>Expected Outcome</strong>Accurate after-action reports &amp; simplified multi-agency auditing for compliance &amp; funding</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="section section--light" id="ecosystem">
+  <div class="container">
+    <div class="tag">Leveraging the Ecosystem</div>
+    <h2 class="section-title">One Platform. Every Device.</h2>
+    <p class="section-subtitle">The Motorola Solutions ecosystem collapses information silos, unifying response agencies through a resilient, closed-loop cloud-native platform. Because Motorola already supplies the hardware, CC Aware connects it all — no third-party middleware required.</p>
+    <div class="ecosystem-grid">
+      <div class="eco-card"><div class="eco-icon">🚁</div><h4>Drone as First Responder (DFR)</h4><p>Autonomous drones deploy before ground units and stream live aerial video directly into CC Aware's map, providing immediate situational awareness at the scene.</p></div>
+      <div class="eco-card"><div class="eco-icon">📷</div><h4>Avigilon Fixed Video</h4><p>Avigilon Unity (acquired by Motorola in 2018) provides AI-powered fixed camera analytics. Video feeds and detection events feed natively into CC Aware without integration middleware.</p></div>
+      <div class="eco-card"><div class="eco-icon">🚗</div><h4>V700, M500 &amp; SVX</h4><p>In-car video (V700) and body-worn cameras (M500, SVX) stream live footage directly onto the incident map, giving command center operators a real-time ground-level view.</p></div>
+      <div class="eco-card"><div class="eco-icon">📻</div><h4>APX NEXT Radios</h4><p>APX NEXT LMR radios transmit GPS location via AVL, populating unit positions on the CC Aware map in real time. Radio voice remains operational even if broadband fails.</p></div>
+      <div class="eco-card"><div class="eco-icon">🚨</div><h4>Rave Panic Button</h4><p>Acquired by Motorola in 2021, Rave Panic Button triggers instant CC Aware Rules Engine responses — nearest cameras surface automatically, supervisors are alerted, and a Mission can auto-launch.</p></div>
+      <div class="eco-card"><div class="eco-icon">🔍</div><h4>License Plate Recognition (LPR)</h4><p>LEARN and Vigilant LPR hits appear as map events in CC Aware. Patrol officers and dispatch see plate reads in context with active incidents — critical for pursuit and evacuation management.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF / VALIDATION -->
+<section class="proof-section">
+  <div class="container">
+    <div class="tag">Validated by Government</div>
+    <h2 class="section-title" style="color:var(--white);">Royal Commission Confirms the Approach</h2>
+    <p class="section-subtitle">Australia's Royal Commission into Natural Disasters independently validated the exact technology strategy Motorola Solutions has built CC Aware around.</p>
+
+    <div class="pull-quote">
+      <div class="pull-quote-text">"Robust, mission-critical communications including land mobile radio remains the most reliable technology for public safety agencies."</div>
+      <div class="pull-quote-source">Royal Commission into Natural Disasters — Final Report, accepted in full by the Australian Government · Nov. 2020</div>
+    </div>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-card-icon">📻</div>
+        <h4>LMR Is the Gold Standard</h4>
+        <p>The Commission found that Land Mobile Radio has proven to be the most resilient, reliable, and secure technology to withstand the impacts of natural disasters — including bushfires — in all countries worldwide. CC Aware is built on this backbone.</p>
+      </div>
+      <div class="proof-card">
+        <div class="proof-card-icon">🤝</div>
+        <h4>Cross-Jurisdiction Interoperability</h4>
+        <p>As fires cross state lines, the Commission called for enhanced interoperability between agencies and jurisdictions. CC Aware's cloud-based Missions platform links disparate networks — giving agencies a shared operational picture across county and state borders.</p>
+      </div>
+      <div class="proof-card">
+        <div class="proof-card-icon">🚁</div>
+        <h4>Drones as First Responders</h4>
+        <p>The Commission highlighted drones as having "huge potential in bushfire recovery," acting as the first first responders — creating eyes on the scene before any human resources are deployed. This is exactly what CC Aware's Drone as First Responder (DFR) integration delivers.</p>
+      </div>
+      <div class="proof-card">
+        <div class="proof-card-icon">🤖</div>
+        <h4>AI + Data Fusion at the Frontline</h4>
+        <p>The report called for voice communications to be augmented with rich data sets leveraging AI and analytics — to build a more complete picture of real-time incident management. CC Aware's Rules Engine and AI Assist are precisely this capability.</p>
+      </div>
+      <div class="proof-card">
+        <div class="proof-card-icon">📡</div>
+        <h4>Broadband Enhances, LMR Anchors</h4>
+        <p>The Commission endorsed fusing LMR and broadband technologies — not replacing one with the other. CC Aware operates this hybrid model natively: radio remains operational even when broadband fails in high-WUI terrain.</p>
+      </div>
+      <div class="proof-card">
+        <div class="proof-card-icon">🔮</div>
+        <h4>AI to Predict and Prevent</h4>
+        <p>The Commission's vision: leverage AI and sophisticated analytics to help predict and even prevent bushfires. Motorola's ICEYE SAR satellite integration and CC Aware's weather and fire perimeter overlays are the first step toward exactly this outcome.</p>
+      </div>
+    </div>
+
+    <div class="proof-source-bar">
+      <div style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);flex-shrink:0;">Source</div>
+      <p><strong>Motorola Solutions · The Australian</strong> — "Collaboration, engagement and innovation: Australia's road to resilience from natural disasters." Published verbatim in The Australian newspaper, 13 November 2020. Based on findings from the Royal Commission into Natural Disasters, all recommendations accepted by the Australian Government.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROVEN IN THE FIELD -->
+<section class="deploy-section">
+  <div class="container">
+    <div class="tag">Proven in the Field</div>
+    <h2 class="section-title">Real Deployments. Real Results.</h2>
+    <p class="section-subtitle">Motorola Solutions' mission-critical communications infrastructure is already protecting communities across Australia — at scale, under fire conditions, and across state lines.</p>
+
+    <div style="display:flex;flex-direction:column;gap:2rem;">
+
+      <!-- Card 1: FRNSW SmartConnect -->
+      <div class="deploy-card">
+        <div class="deploy-card-header">
+          <div class="deploy-card-header-left">
+            <h3>Fire &amp; Rescue New South Wales — SmartConnect Deployment</h3>
+            <p>Sydney, Australia · May 2023 · Part of AUD $80M NSW Government investment</p>
+          </div>
+          <div class="deploy-stats-row">
+            <div class="deploy-stat"><div class="deploy-stat-num">$80M</div><div class="deploy-stat-label">AUD Gov. Investment</div></div>
+            <div class="deploy-stat"><div class="deploy-stat-num">P25</div><div class="deploy-stat-label">Radio Standard</div></div>
+            <div class="deploy-stat"><div class="deploy-stat-num">3-Way</div><div class="deploy-stat-label">LMR + LTE + Satellite</div></div>
+          </div>
+        </div>
+        <div class="deploy-card-body">
+          <div class="deploy-quote">
+            <p>"By automatically switching between LMR and broadband networks, SmartConnect protects firefighters by helping them to focus on their mission, knowing that their vital communications can roam with them where they need to go."</p>
+            <cite>— Con Balaskas, Managing Director, Motorola Solutions Australia &amp; New Zealand</cite>
+          </div>
+          <div class="deploy-networks">
+            <h5>What Was Deployed</h5>
+            <ul class="deploy-network-list">
+              <li>SmartConnect automatically switches between LMR, LTE, Wi-Fi and satellite — no manual intervention by the firefighter</li>
+              <li>End-to-end encryption maintained across all network handoffs, including satellite roaming</li>
+              <li>Eliminates radio dead spots in garages, buildings and remote bushfire terrain</li>
+              <li>Delivered as part of FRNSW's Connected Firefighter program — a direct response to the 2019–20 Bushfire Royal Commission</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: TasGRN / AP&ES Games -->
+      <div class="deploy-card">
+        <div class="deploy-card-header">
+          <div class="deploy-card-header-left">
+            <h3>Tasmania Government Radio Network — TasGRN Expansion</h3>
+            <p>Tasmania, Australia · March 2025 · Telstra &amp; Motorola Solutions · Australasian Police &amp; Emergency Services Games</p>
+          </div>
+          <div class="deploy-stats-row">
+            <div class="deploy-stat"><div class="deploy-stat-num">400</div><div class="deploy-stat-label">Network Sites</div></div>
+            <div class="deploy-stat"><div class="deploy-stat-num">310K</div><div class="deploy-stat-label">Voice Calls/Month</div></div>
+            <div class="deploy-stat"><div class="deploy-stat-num">1,000</div><div class="deploy-stat-label">Call Hours/Month</div></div>
+          </div>
+        </div>
+        <div class="deploy-card-body">
+          <div class="deploy-quote">
+            <p>"Thanks to TasGRN's reliable and secure voice and data communications, Tasmania's emergency services are better equipped to respond to complex and unpredictable events including bushfires, storms and other threats to public security."</p>
+            <cite>— Renee Oates, AP&amp;ES Games Director, Tasmania Police</cite>
+          </div>
+          <div class="deploy-networks">
+            <h5>Motorola State Networks in Australia</h5>
+            <ul class="deploy-network-list">
+              <li>Victoria — Metropolitan Mobile Radio Network</li>
+              <li>New South Wales — Public Safety Network</li>
+              <li>Queensland — Government Wireless Network</li>
+              <li>Tasmania — TasGRN (400 sites, deployed 2021, expanded 2025)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to See It in Action?</h2>
+    <p>Join California fire departments already in the Motorola ecosystem. Experience the full three-phase wildfire response in a live simulation.</p>
+    <div class="cta-btns">
+      <a href="team.html#cta" class="btn btn--white">Request a Demo</a>
+      <a href="compare.html" class="btn btn--outline-white">Compare vs. Axon →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo"><img src="motorola-logo.png" alt="Motorola Solutions" class="footer-logo-img" /><div><div style="color:rgba(255,255,255,.8);font-weight:700;font-size:.9rem;">CommandCentral Aware</div><div style="font-size:.72rem;">Motorola Solutions</div></div></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a><a href="campaign.html">Campaign</a><a href="team.html">Team</a>
+    </div>
+    <div class="footer-copy">© 2026 Motorola Solutions, Inc.</div>
+  </div>
+</footer>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="features.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Features
+    </a>
+    <a href="mission.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mission
+    </a>
+    <a href="compare.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Compare
+    </a>
+    <a href="campaign.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Campaign
+    </a>
+    <a href="team.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

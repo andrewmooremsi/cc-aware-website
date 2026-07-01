@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaign — CC Aware | Motorola Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .campaign-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
+    .campaign-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: box-shadow .2s, transform .2s; }
+    .campaign-card:hover { box-shadow: 0 12px 40px rgba(183,28,28,.1); transform: translateY(-3px); }
+    .campaign-card-header { background: var(--blue); color: white; padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+    .campaign-phase-num { font-size: 2rem; font-weight: 900; opacity: .35; line-height: 1; }
+    .campaign-card-header h3 { font-size: 1rem; font-weight: 700; }
+    .campaign-card-header p  { font-size: .75rem; opacity: .8; margin-top: .1rem; }
+    .campaign-card-body { padding: 1.75rem; }
+    .campaign-card-body ul { list-style: none; }
+    .campaign-card-body ul li { font-size: .88rem; color: var(--gray); padding: .4rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .6rem; }
+    .campaign-card-body ul li:last-child { border-bottom: none; }
+    .campaign-card-body ul li::before { content: '→'; color: var(--blue); flex-shrink: 0; }
+    .campaign-card-cta { margin-top: 1.25rem; background: var(--light); border-radius: 6px; padding: .7rem 1rem; font-size: .82rem; color: var(--mid); border-left: 3px solid var(--blue); }
+    .campaign-card-cta strong { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); margin-bottom: .2rem; }
+    .timeline { position: relative; padding-left: 2.5rem; display: flex; flex-direction: column; gap: 0; }
+    .timeline::before { content: ''; position: absolute; left: .6rem; top: .5rem; bottom: .5rem; width: 2px; background: var(--border); }
+    .tl-item { position: relative; padding-bottom: 2.5rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot { position: absolute; left: -2.5rem; top: .2rem; width: 14px; height: 14px; border-radius: 50%; background: var(--blue); border: 3px solid white; box-shadow: 0 0 0 3px var(--blue); }
+    .tl-week { font-size: .68rem; text-transform: uppercase; letter-spacing: .15em; color: var(--gray); margin-bottom: .2rem; }
+    .tl-title { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+    .tl-desc { font-size: .85rem; color: var(--gray); line-height: 1.6; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .metric-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; text-align: center; }
+    .metric-num   { font-size: 2.8rem; font-weight: 900; color: var(--blue); line-height: 1; }
+    .metric-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); margin-top: .5rem; }
+    .budget-bar { background: var(--light); border-radius: 10px; padding: 2rem; margin-top: 2.5rem; }
+    .budget-row { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.25rem; }
+    .budget-row:last-child { margin-bottom: 0; }
+    .budget-label { width: 160px; font-size: .85rem; color: var(--mid); flex-shrink: 0; }
+    .budget-bar-track { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+    .budget-bar-fill  { height: 100%; background: var(--blue); border-radius: 5px; }
+    .budget-val { width: 60px; text-align: right; font-size: .85rem; font-weight: 700; color: var(--dark); flex-shrink: 0; }
+    .timeline-budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    @media (max-width: 900px) {
+      .campaign-grid, .metrics-grid { grid-template-columns: 1fr; }
+      .timeline-budget-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .budget-label { width: 120px; font-size: .82rem; }
+      .budget-val { width: 48px; font-size: .82rem; }
+    }
+    @media (max-width: 600px) {
+      .metrics-grid { grid-template-columns: repeat(2,1fr); }
+      .budget-row { gap: .75rem; }
+      .budget-label { width: 110px; font-size: .8rem; }
+      .budget-val { width: 42px; font-size: .8rem; }
+      .metric-num { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="motorola-logo.png" alt="Motorola Solutions" class="nav-logo-img" />
+      <div class="nav-logo-divider"></div>
+      <div><div class="nav-logo-text">CommandCentral Aware</div><div class="nav-logo-sub">Motorola Solutions</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a>
+      <a href="campaign.html" class="active">Campaign</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-cta">
+      <a href="campaign.html" class="btn btn--outline-white" style="padding:.5rem 1.1rem;font-size:.83rem;">Learn More</a>
+      <a href="team.html#cta" class="btn btn--red" style="padding:.5rem 1.1rem;font-size:.83rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="page-hero-eyebrow">Go-to-Market Strategy</div>
+    <h1>The <span>4-Phase</span><br>Campaign Plan</h1>
+    <p>A targeted $3K campaign engineered to move California fire department decision-makers from awareness to demo request — in four structured phases.</p>
+    <div class="page-hero-btns">
+      <a href="#phases" class="btn btn--red">View Campaign Phases</a>
+      <a href="#metrics" class="btn btn--outline-white">Performance Metrics</a>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGN PHASES -->
+<section class="section" id="phases">
+  <div class="container">
+    <div class="tag">Campaign Structure</div>
+    <h2 class="section-title">Four Phases, One Pipeline</h2>
+    <p class="section-subtitle">Each phase moves the target buyer — fire chief, IT director, or county emergency manager — one step closer to a qualified demo request with the Motorola field sales team.</p>
+    <div class="campaign-grid">
+      <div class="campaign-card">
+        <div class="campaign-card-header">
+          <div class="campaign-phase-num">01</div>
+          <div>
+            <h3>Awareness — Digital Presence</h3>
+            <p>Weeks 1–2 · LinkedIn &amp; Google Ads</p>
+          </div>
+        </div>
+        <div class="campaign-card-body">
+          <ul>
+            <li>LinkedIn Sponsored Content targeting CA public safety titles (Fire Chief, Deputy Chief, Emergency Manager, IT Director)</li>
+            <li>Google Search Ads targeting "wildfire situational awareness software," "public safety command center," and "CAD video integration"</li>
+            <li>Retargeting pixel placed on motorolasolutions.com CC Aware product pages</li>
+            <li>Campaign landing page with wildfire scenario video and demo request form</li>
+          </ul>
+          <div class="campaign-card-cta"><strong>Phase Goal</strong>Drive 500+ impressions among CA fire department decision-makers; 40+ landing page visits</div>
+        </div>
+      </div>
+      <div class="campaign-card">
+        <div class="campaign-card-header">
+          <div class="campaign-phase-num">02</div>
+          <div>
+            <h3>Education — Email Nurture</h3>
+            <p>Weeks 2–4 · Email Sequence</p>
+          </div>
+        </div>
+        <div class="campaign-card-body">
+          <ul>
+            <li>3-email nurture sequence to existing Motorola customer contacts in CA fire segment</li>
+            <li>Email 1: Wildfire challenge framing — "What the Ventura County fires revealed about command center blind spots"</li>
+            <li>Email 2: Product walkthrough — three mission phases with CC Aware feature mapping</li>
+            <li>Email 3: Competitor comparison + FedRAMP compliance brief + demo offer</li>
+            <li>3.5% click-through rate target; high-SQL quality scoring on demo form submissions</li>
+          </ul>
+          <div class="campaign-card-cta"><strong>Phase Goal</strong>3.5% CTR on email sequence; move MQLs to demo-ready SQL stage</div>
+        </div>
+      </div>
+      <div class="campaign-card">
+        <div class="campaign-card-header">
+          <div class="campaign-phase-num">03</div>
+          <div>
+            <h3>Engagement — Experience Center</h3>
+            <p>Weeks 3–6 · Live Demo Events</p>
+          </div>
+        </div>
+        <div class="campaign-card-body">
+          <ul>
+            <li>Motorola Experience Center events in Los Angeles and Sacramento — full CC Aware wildfire simulation</li>
+            <li>Partner activation with California Fire Chiefs Association (CFCA) conference presence</li>
+            <li>Hands-on scenario: Pre-fire positioning → active wildfire response → post-incident reporting</li>
+            <li>Side-by-side demo vs. legacy multi-screen workflow to demonstrate cognitive load reduction</li>
+            <li>On-site ROI calculator session with Motorola account executives</li>
+          </ul>
+          <div class="campaign-card-cta"><strong>Phase Goal</strong>15 qualified demo attendees from target CA fire department accounts</div>
+        </div>
+      </div>
+      <div class="campaign-card">
+        <div class="campaign-card-header">
+          <div class="campaign-phase-num">04</div>
+          <div>
+            <h3>Conversion — Sales Close</h3>
+            <p>Weeks 5–8 · Proposal &amp; Close</p>
+          </div>
+        </div>
+        <div class="campaign-card-body">
+          <ul>
+            <li>Customized ROI proposal for each demo attendee, showing CC Aware cost vs. current multi-vendor spend</li>
+            <li>Compliance package delivery: FedRAMP authorization letter, CJIS security addendum, and procurement fast-track documentation</li>
+            <li>Internal champion enablement: slide deck + one-pager for fire chiefs to present to county IT and budget committees</li>
+            <li>Contract modification pathway briefing — showing how CC Aware can be added to existing Motorola agreements</li>
+            <li>15% demo-to-SQL conversion target; pipeline goal of 3 qualified opportunities</li>
+          </ul>
+          <div class="campaign-card-cta"><strong>Phase Goal</strong>15% demo-to-close conversion; 3 qualified pipeline opportunities opened</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section section--light">
+  <div class="container timeline-budget-grid">
+    <div>
+      <div class="tag">Timeline</div>
+      <h2 class="section-title">8-Week Execution Plan</h2>
+      <p style="color:var(--gray);font-size:.95rem;margin-bottom:2.5rem;">From campaign launch to first qualified pipeline opportunities — an 8-week sprint aligned with California wildfire season awareness peaks.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-week">Week 1</div><div class="tl-title">Campaign Launch</div><div class="tl-desc">LinkedIn + Google Ads live. Landing page published. Retargeting pixel deployed. Email list segmented from Motorola CA fire CRM.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-week">Week 2</div><div class="tl-title">Email Sequence Begin</div><div class="tl-desc">Email 1 deployed to warm contacts. Paid ad performance review — adjust bidding on top-performing keywords. First landing page conversion data collected.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-week">Week 3</div><div class="tl-title">Email 2 + Demo Invites</div><div class="tl-desc">Product walkthrough email sent. Experience Center event invitations issued to MQLs. CFCA conference outreach activated.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-week">Weeks 4–5</div><div class="tl-title">Experience Center Events</div><div class="tl-desc">LA and Sacramento simulation events. Email 3 (competitor comparison) sent to remaining nurture list. Demo attendance confirmed.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-week">Weeks 6–8</div><div class="tl-title">Proposal &amp; Close</div><div class="tl-desc">ROI proposals and compliance packages delivered. Champion enablement decks distributed. First pipeline opportunities logged in CRM.</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="tag">Budget Allocation</div>
+      <h2 class="section-title">$3,000 Campaign Budget</h2>
+      <p style="color:var(--gray);font-size:.95rem;margin-bottom:2rem;">Every dollar allocated to maximize qualified reach within the target CA fire department segment.</p>
+      <div class="budget-bar">
+        <div class="budget-row">
+          <div class="budget-label">LinkedIn Ads</div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:40%;"></div></div>
+          <div class="budget-val">$1,200</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Google Search Ads</div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:27%;"></div></div>
+          <div class="budget-val">$800</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Landing Page / Design</div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:17%;"></div></div>
+          <div class="budget-val">$500</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Email Platform / CRM</div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:10%;"></div></div>
+          <div class="budget-val">$300</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-label">Collateral / Print</div>
+          <div class="budget-bar-track"><div class="budget-bar-fill" style="width:7%;"></div></div>
+          <div class="budget-val">$200</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="section" id="metrics">
+  <div class="container">
+    <div class="tag">Performance Metrics</div>
+    <h2 class="section-title">Target KPIs</h2>
+    <p class="section-subtitle">Four headline metrics that define success for this campaign — each tied directly to a pipeline outcome.</p>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-num">3.5%</div>
+        <div class="metric-label">Email Click-Through Rate</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">15%</div>
+        <div class="metric-label">Demo-to-SQL Conversion</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">$3K</div>
+        <div class="metric-label">Total Campaign Budget</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">High</div>
+        <div class="metric-label">SQL Quality Score</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Join the Campaign</h2>
+    <p>California fire departments: see CC Aware live at one of our Experience Center events or request a private simulation for your command team.</p>
+    <div class="cta-btns">
+      <a href="team.html#cta" class="btn btn--white">Request a Demo</a>
+      <a href="team.html" class="btn btn--outline-white">Meet the Team →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo"><img src="motorola-logo.png" alt="Motorola Solutions" class="footer-logo-img" /><div><div style="color:rgba(255,255,255,.8);font-weight:700;font-size:.9rem;">CommandCentral Aware</div><div style="font-size:.72rem;">Motorola Solutions</div></div></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a><a href="campaign.html">Campaign</a><a href="team.html">Team</a>
+    </div>
+    <div class="footer-copy">© 2026 Motorola Solutions, Inc.</div>
+  </div>
+</footer>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="features.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Features
+    </a>
+    <a href="mission.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mission
+    </a>
+    <a href="compare.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Compare
+    </a>
+    <a href="campaign.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Campaign
+    </a>
+    <a href="team.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

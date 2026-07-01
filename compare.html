@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare — CC Aware | Motorola Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .vs-header { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: center; margin-bottom: 2.5rem; }
+    .vs-badge { width: 56px; height: 56px; border-radius: 50%; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; box-shadow: 0 0 0 6px rgba(183,28,28,.2); }
+    .compare-full { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .compare-col { }
+    .compare-col-header { padding: 1.5rem 2rem; }
+    .compare-col-header.msi  { background: var(--blue); color: white; }
+    .compare-col-header.axon { background: #3d4a5c; color: white; }
+    .compare-col-header h3 { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; opacity: .75; margin-bottom: .2rem; }
+    .compare-col-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .compare-row { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+    .compare-cell { padding: 1rem 2rem; font-size: .88rem; }
+    .compare-cell.head { background: var(--light); font-weight: 700; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); padding: .7rem 2rem; }
+    .compare-cell.pro  { color: var(--dark); }
+    .compare-cell.con  { color: #888; font-style: italic; }
+    .compare-cell .check { color: #2e7d32; margin-right: .4rem; }
+    .compare-cell .cross { color: #c62828; margin-right: .4rem; }
+    .compare-cell .neutral { color: #ff9800; margin-right: .4rem; }
+    .verdict-full { margin-top: 2.5rem; background: #f0f5ff; border: 2px solid var(--blue); border-radius: 12px; padding: 2rem; display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start; }
+    .verdict-icon { font-size: 2.5rem; }
+    .verdict-full h3 { font-size: 1.1rem; color: var(--blue); margin-bottom: .5rem; }
+    .verdict-full p  { font-size: .92rem; color: var(--mid); line-height: 1.7; }
+    .sales-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .sales-card { border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
+    .sales-card-num { font-size: 3rem; font-weight: 900; color: var(--blue); opacity: .15; line-height: 1; margin-bottom: .3rem; }
+    .sales-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+    .sales-card p  { font-size: .87rem; color: var(--gray); line-height: 1.65; }
+    @media (max-width: 760px) {
+      .vs-header { grid-template-columns: 1fr; gap: .5rem; }
+      .vs-badge { display: none; }
+      .verdict-full { grid-template-columns: 1fr; }
+      .sales-grid { grid-template-columns: 1fr; }
+
+      /* Hide the desktop 2-col table entirely */
+      .compare-full { display: none; }
+
+      /* Mobile card comparison */
+      .compare-mobile { display: block; }
+      .cmp-category { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); background: var(--light); padding: .6rem 1rem; border-radius: 8px 8px 0 0; border: 1px solid var(--border); margin-top: 1.25rem; }
+      .cmp-row { border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; overflow: hidden; }
+      .cmp-side { padding: 1rem 1.1rem; font-size: .9rem; }
+      .cmp-side-label { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .3rem; }
+      .cmp-side.msi  { background: #eef4ff; border-bottom: 1px solid var(--border); }
+      .cmp-side.msi .cmp-side-label  { color: var(--blue); }
+      .cmp-side.axon { background: #f7f8fa; }
+      .cmp-side.axon .cmp-side-label { color: #3d4a5c; }
+      .cmp-side .check  { color: #2e7d32; margin-right: .3rem; }
+      .cmp-side .cross  { color: #c62828; margin-right: .3rem; }
+      .cmp-side .neutral{ color: #ff9800; margin-right: .3rem; }
+    }
+    @media (min-width: 761px) {
+      .compare-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="motorola-logo.png" alt="Motorola Solutions" class="nav-logo-img" />
+      <div class="nav-logo-divider"></div>
+      <div><div class="nav-logo-text">CommandCentral Aware</div><div class="nav-logo-sub">Motorola Solutions</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="mission.html">Mission</a>
+      <a href="compare.html" class="active">Compare</a>
+      <a href="campaign.html">Campaign</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-cta">
+      <a href="campaign.html" class="btn btn--outline-white" style="padding:.5rem 1.1rem;font-size:.83rem;">Learn More</a>
+      <a href="team.html#cta" class="btn btn--red" style="padding:.5rem 1.1rem;font-size:.83rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="page-hero-eyebrow">Competitive Analysis</div>
+    <h1>CC Aware vs.<br><span>Axon + Fusus</span></h1>
+    <p>The public safety situational awareness market has one major challenger. Here's how Motorola CommandCentral Aware stacks up head-to-head.</p>
+    <div class="page-hero-btns">
+      <a href="#compare" class="btn btn--red">See the Comparison</a>
+      <a href="#sales" class="btn btn--outline-white">Sales Advantage</a>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARE TABLE -->
+<section class="section" id="compare">
+  <div class="container">
+    <div class="tag">Head-to-Head</div>
+    <h2 class="section-title">Feature-by-Feature Breakdown</h2>
+    <p class="section-subtitle">Axon acquired Fusus in 2023 and integrated it into the Axon platform. Here's what that means for agencies evaluating both platforms.</p>
+
+    <div class="vs-header">
+      <div>
+        <div style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blue-dark);font-weight:700;margin-bottom:.3rem;">Motorola Solutions</div>
+        <div style="font-size:1.25rem;font-weight:800;color:var(--blue);">CommandCentral Aware</div>
+      </div>
+      <div style="display:flex;justify-content:center;"><div class="vs-badge">VS</div></div>
+      <div style="text-align:right;">
+        <div style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin-bottom:.3rem;">Axon Enterprise</div>
+        <div style="font-size:1.25rem;font-weight:800;color:#3d4a5c;">Axon + Fusus</div>
+      </div>
+    </div>
+
+    <div class="compare-full">
+      <div class="compare-col-header msi"><h3>Motorola Solutions</h3><h2>CommandCentral Aware</h2></div>
+      <div class="compare-col-header axon"><h3>Axon Enterprise</h3><h2>Axon + Fusus</h2></div>
+
+      <div class="compare-cell head">Hardware Integration</div>
+      <div class="compare-cell head">Hardware Integration</div>
+      <div class="compare-cell pro"><span class="check">✓</span>Native integration with APX radios, Avigilon cameras, V700/M500 BWC, PremierOne CAD — no middleware</div>
+      <div class="compare-cell con"><span class="neutral">~</span>Strong Axon BWC ecosystem; Fusus adds third-party video but requires separate configuration per camera brand</div>
+
+      <div class="compare-cell head">Radio / LMR</div>
+      <div class="compare-cell head">Radio / LMR</div>
+      <div class="compare-cell pro"><span class="check">✓</span>APX NEXT LMR GPS feeds map unit positions in real time. Radio remains operational when broadband fails</div>
+      <div class="compare-cell con"><span class="cross">✗</span>No native LMR radio integration. Axon is a broadband-first platform — radio interop requires third-party bridge</div>
+
+      <div class="compare-cell head">Map Platform</div>
+      <div class="compare-cell head">Map Platform</div>
+      <div class="compare-cell pro"><span class="check">✓</span>ESRI ArcGIS geospatial layers — the public safety GIS standard — with fire weather, WUI, and ICEYE SAR overlays</div>
+      <div class="compare-cell con"><span class="neutral">~</span>Fusus uses a map-based interface; less deeply integrated with ESRI ArcGIS layers out of the box</div>
+
+      <div class="compare-cell head">AI / Analytics</div>
+      <div class="compare-cell head">AI / Analytics</div>
+      <div class="compare-cell pro"><span class="check">✓</span>Avigilon AI analytics (object detection, crowd analysis, vehicle recognition) feed directly into Rules Engine triggers</div>
+      <div class="compare-cell con"><span class="neutral">~</span>Axon AI (ALPR, TASER data) strong for body-cam evidence; Fusus video AI less mature than Avigilon Unity</div>
+
+      <div class="compare-cell head">Rules Engine / Automation</div>
+      <div class="compare-cell head">Rules Engine / Automation</div>
+      <div class="compare-cell pro"><span class="check">✓</span>Configurable Rules Engine auto-pulls nearest cameras, alerts supervisors, and launches Mission workflows on any event trigger</div>
+      <div class="compare-cell con"><span class="cross">✗</span>No equivalent automated Rules Engine — analysts must manually navigate to relevant feeds when incidents occur</div>
+
+      <div class="compare-cell head">Satellite Imagery</div>
+      <div class="compare-cell head">Satellite Imagery</div>
+      <div class="compare-cell pro"><span class="check">✓</span>ICEYE SAR satellite imagery — sees through smoke, cloud, and darkness. Critical for wildfire command operations</div>
+      <div class="compare-cell con"><span class="cross">✗</span>No SAR satellite integration. No comparable offering for fire perimeter visibility in obscured conditions</div>
+
+      <div class="compare-cell head">Compliance / Certification</div>
+      <div class="compare-cell head">Compliance / Certification</div>
+      <div class="compare-cell pro"><span class="check">✓</span>FedRAMP Authorized (Moderate) + CJIS compliant. Meets federal standards for criminal justice data handling</div>
+      <div class="compare-cell con"><span class="neutral">~</span>Axon cloud is CJIS compliant; FedRAMP Moderate authorization status varies by product line</div>
+
+      <div class="compare-cell head">Deployment Model</div>
+      <div class="compare-cell head">Deployment Model</div>
+      <div class="compare-cell pro"><span class="check">✓</span>Cloud SaaS upgrade on existing Motorola hardware — no rip-and-replace. Compresses 12-18 month procurement to weeks</div>
+      <div class="compare-cell con"><span class="neutral">~</span>Fusus requires deploying new hub devices per camera. Higher field install burden for agencies starting fresh</div>
+
+      <div class="compare-cell head">Multi-Agency Coordination</div>
+      <div class="compare-cell head">Multi-Agency Coordination</div>
+      <div class="compare-cell pro"><span class="check">✓</span>Missions Feature supports structured multi-agency workflows, shared resource tracking, and auto-generated after-action logs</div>
+      <div class="compare-cell con"><span class="neutral">~</span>Fusus supports camera sharing across agencies; less structured workflow orchestration for complex multi-agency incidents</div>
+    </div>
+
+    <!-- MOBILE VERSION -->
+    <div class="compare-mobile">
+      <div class="cmp-category">Hardware Integration</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>Native integration with APX radios, Avigilon cameras, V700/M500 BWC, PremierOne CAD — no middleware</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="neutral">~</span>Strong BWC ecosystem; Fusus adds third-party video but requires per-brand configuration</div>
+      </div>
+      <div class="cmp-category">Radio / LMR</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>APX NEXT GPS feeds unit positions in real time. Radio stays live when broadband fails</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="cross">✗</span>No native LMR radio integration — requires a third-party bridge</div>
+      </div>
+      <div class="cmp-category">Map Platform</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>ESRI ArcGIS layers with fire weather, WUI, and ICEYE SAR overlays</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="neutral">~</span>Map-based interface, less integrated with ArcGIS out of the box</div>
+      </div>
+      <div class="cmp-category">Rules Engine / Automation</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>Auto-pulls nearest cameras, alerts supervisors, launches Missions — on any trigger</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="cross">✗</span>No equivalent automated Rules Engine — analysts navigate manually</div>
+      </div>
+      <div class="cmp-category">Satellite Imagery</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>ICEYE SAR — sees through smoke, cloud &amp; darkness for wildfire command</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="cross">✗</span>No SAR satellite integration</div>
+      </div>
+      <div class="cmp-category">Compliance</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>FedRAMP Authorized (Moderate) + CJIS compliant</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="neutral">~</span>CJIS compliant; FedRAMP status varies by product line</div>
+      </div>
+      <div class="cmp-category">Deployment</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>Cloud SaaS added to existing Motorola hardware — no rip-and-replace</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="neutral">~</span>Requires new hub devices per camera — higher install burden</div>
+      </div>
+      <div class="cmp-category">Multi-Agency Coordination</div>
+      <div class="cmp-row">
+        <div class="cmp-side msi"><div class="cmp-side-label">Motorola CC Aware</div><span class="check">✓</span>Missions Feature with shared tracking and auto after-action logs</div>
+        <div class="cmp-side axon"><div class="cmp-side-label">Axon + Fusus</div><span class="neutral">~</span>Camera sharing across agencies; less structured workflow orchestration</div>
+      </div>
+    </div>
+
+    <div class="verdict-full">
+      <div class="verdict-icon">⚖️</div>
+      <div>
+        <h3>Verdict: Motorola Wins Where It Matters Most for Fire &amp; Multi-Agency Response</h3>
+        <p>Axon + Fusus is a formidable competitor for agencies standardizing on body-worn camera ecosystems. But for California fire departments and multi-agency command centers that depend on radio interoperability, satellite imagery in smoke-obscured terrain, and automated Rules Engine responses, CC Aware holds clear advantages that Axon cannot match without significant third-party integration work. And for the 435 CA fire departments already using Motorola radios and CAD — CC Aware is an upgrade, not a replacement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALES MODEL -->
+<section class="section section--light" id="sales">
+  <div class="container">
+    <div class="tag">Sales Model</div>
+    <h2 class="section-title">Why This Wins the Sales Cycle</h2>
+    <p class="section-subtitle">CC Aware's competitive advantage isn't just technical — it's structural. The Motorola ecosystem creates three compounding sales advantages that Axon cannot replicate.</p>
+    <div class="sales-grid">
+      <div class="sales-card">
+        <div class="sales-card-num">01</div>
+        <h4>Cross-Sell, Not Cold-Sell</h4>
+        <p>Every CC Aware deal starts with a warm relationship. The 435 CA fire departments already running APX radios and PremierOne CAD are existing Motorola accounts — not new prospects. CC Aware is an upsell, not a competitive displacement. The trust is already there.</p>
+      </div>
+      <div class="sales-card">
+        <div class="sales-card-num">02</div>
+        <h4>Accelerated Procurement Cycle</h4>
+        <p>Government tech procurement typically takes 12–18 months through full RFP processes. Because CC Aware deploys as a software layer on hardware already under contract, it can often be added via a contract modification — compressing the cycle dramatically and reducing the budget threshold requiring full procurement review.</p>
+      </div>
+      <div class="sales-card">
+        <div class="sales-card-num">03</div>
+        <h4>Compliance-Ready Out of the Box</h4>
+        <p>FedRAMP Moderate authorization and CJIS compliance eliminate the most common government procurement blockers. IT and legal teams receive the security documentation they need immediately — rather than spending months evaluating whether a new vendor meets federal standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Make the Case to Your Agency</h2>
+    <p>Our team has prepared a full ROI analysis and compliance documentation package for California fire departments already in the Motorola ecosystem.</p>
+    <div class="cta-btns">
+      <a href="team.html#cta" class="btn btn--white">Request a Demo</a>
+      <a href="campaign.html" class="btn btn--outline-white">See the Campaign →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo"><img src="motorola-logo.png" alt="Motorola Solutions" class="footer-logo-img" /><div><div style="color:rgba(255,255,255,.8);font-weight:700;font-size:.9rem;">CommandCentral Aware</div><div style="font-size:.72rem;">Motorola Solutions</div></div></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a><a href="campaign.html">Campaign</a><a href="team.html">Team</a>
+    </div>
+    <div class="footer-copy">© 2026 Motorola Solutions, Inc.</div>
+  </div>
+</footer>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="features.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Features
+    </a>
+    <a href="mission.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mission
+    </a>
+    <a href="compare.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Compare
+    </a>
+    <a href="campaign.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Campaign
+    </a>
+    <a href="team.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

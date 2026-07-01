@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team — CC Aware | Motorola Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
+    .team-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 1.5rem 1.5rem; text-align: center; transition: box-shadow .2s, transform .2s; }
+    .team-card:hover { box-shadow: 0 10px 36px rgba(21,101,192,.12); transform: translateY(-4px); }
+    .team-photo-wrap { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 1.1rem; overflow: hidden; border: 3px solid var(--blue); background: linear-gradient(135deg, #0a2e6e, #1565c0); display: flex; align-items: center; justify-content: center; }
+    .team-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .team-initials { font-size: 1.7rem; font-weight: 800; color: white; letter-spacing: -.02em; }
+    .team-card-body { }
+    .team-name { font-size: 1rem; font-weight: 700; margin-bottom: .2rem; color: var(--dark); }
+    .team-role { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--blue); font-weight: 700; margin-bottom: 0; }
+    .cta-form-wrapper { background: var(--white); border-radius: 16px; max-width: 680px; margin: 0 auto; padding: 2.5rem; border: 1px solid var(--border); box-shadow: 0 8px 40px rgba(0,0,0,.08); }
+    .cta-form-wrapper h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: .5rem; color: var(--dark); }
+    .cta-form-wrapper p  { font-size: .9rem; color: var(--gray); margin-bottom: 1.75rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; }
+    .form-group label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--mid); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea { border: 1px solid var(--border); border-radius: 6px; padding: .7rem .9rem; font-size: .9rem; color: var(--dark); outline: none; font-family: inherit; transition: border-color .2s; width: 100%; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--red); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-submit { width: 100%; background: var(--red); color: white; border: none; border-radius: 6px; padding: .9rem; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .15s; margin-top: .5rem; }
+    .form-submit:hover { opacity: .9; transform: translateY(-1px); }
+    .form-note { font-size: .75rem; color: var(--gray); text-align: center; margin-top: .75rem; }
+    @media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(4,1fr); } }
+    @media (max-width: 860px)  { .team-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 600px)  { .team-grid { grid-template-columns: repeat(2,1fr); } .form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 400px)  { .team-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="motorola-logo.png" alt="Motorola Solutions" class="nav-logo-img" />
+      <div class="nav-logo-divider"></div>
+      <div><div class="nav-logo-text">CommandCentral Aware</div><div class="nav-logo-sub">Motorola Solutions</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a>
+      <a href="campaign.html">Campaign</a>
+      <a href="team.html" class="active">Team</a>
+    </div>
+    <div class="nav-cta">
+      <a href="campaign.html" class="btn btn--outline-white" style="padding:.5rem 1.1rem;font-size:.83rem;">Learn More</a>
+      <a href="#cta" class="btn btn--red" style="padding:.5rem 1.1rem;font-size:.83rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="page-hero-eyebrow">Motorola Solutions · Shark Tank 2026</div>
+    <h1>Meet the <span>Team</span></h1>
+    <p>Seven Motorola Solutions interns who built this pitch — from product deep-dives to go-to-market strategy — in six weeks.</p>
+    <div class="page-hero-btns">
+      <a href="#cta" class="btn btn--red">Request a Demo</a>
+      <a href="index.html" class="btn btn--outline-white">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="container">
+    <div class="tag">The Shark Tank Team</div>
+    <h2 class="section-title">CC Aware Intern Team 2026</h2>
+    <p class="section-subtitle">A cross-functional team of interns spanning product, marketing, sales strategy, and technical research — united behind one pitch.</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="sheridan.jpg" alt="Sheridan Crisafulli" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">SC</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Sheridan Crisafulli</div>
+          <div class="team-role">Performance Marketing Intern</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="elsa.jpg" alt="Elsa Olson" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">EO</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Elsa Olson</div>
+          <div class="team-role">Global Operations Intern</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="andrew.jpg" alt="Andrew Moore" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">AM</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Andrew Moore</div>
+          <div class="team-role">Data Scientist Intern</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="michael.jpg" alt="Michael Suppan" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">MS</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Michael Suppan</div>
+          <div class="team-role">VS&amp;A Sales Engineering Intern</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="denny.jpg" alt="Denny Furlong" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">DF</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Denny Furlong</div>
+          <div class="team-role">Inside Sales Intern</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="emily.jpg" alt="Emily Heckmann" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">EH</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Emily Heckmann</div>
+          <div class="team-role">Marketing Intelligence Intern</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo-wrap">
+          <img src="molly.jpg" alt="Molly Little" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="team-initials" style="display:none;">ML</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Molly Little</div>
+          <div class="team-role">Inside Sales Intern</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / DEMO REQUEST -->
+<section class="section section--light" id="cta">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <div class="tag">Request a Demo</div>
+      <h2 class="section-title">See CC Aware in Action</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Schedule a live simulation of CommandCentral Aware for your agency — including a wildfire scenario walkthrough and compliance package review.</p>
+    </div>
+    <div class="cta-form-wrapper">
+      <h3>Request Your Demo</h3>
+      <p>Fill out the form and a Motorola Solutions account executive will reach out within one business day.</p>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Work Email</label>
+            <input type="email" placeholder="jane.smith@ventura.gov" required />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="(805) 555-0100" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Agency / Organization</label>
+            <input type="text" placeholder="Ventura County Fire Department" required />
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select required>
+              <option value="" disabled selected>Select your role</option>
+              <option>Fire Chief / Deputy Chief</option>
+              <option>Emergency Manager</option>
+              <option>IT Director / CTO</option>
+              <option>911 Dispatch Supervisor</option>
+              <option>Procurement / Contracts</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>Current Situation (optional)</label>
+          <textarea placeholder="Tell us about your current command center setup, pain points, or what you'd like to see demonstrated..."></textarea>
+        </div>
+        <button type="submit" class="form-submit" style="background:var(--blue);">Request Demo →</button>
+        <div class="form-note">By submitting, you agree to be contacted by a Motorola Solutions representative. No spam — we respond within one business day.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Built by Interns. Ready for the Field.</h2>
+    <p>This pitch represents six weeks of research, analysis, and strategy by the Motorola Solutions Shark Tank 2026 intern team.</p>
+    <div class="cta-btns">
+      <a href="index.html" class="btn btn--white">Back to Home</a>
+      <a href="features.html" class="btn btn--outline-white">Explore Features →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo"><img src="motorola-logo.png" alt="Motorola Solutions" class="footer-logo-img" /><div><div style="color:rgba(255,255,255,.8);font-weight:700;font-size:.9rem;">CommandCentral Aware</div><div style="font-size:.72rem;">Motorola Solutions</div></div></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a><a href="campaign.html">Campaign</a><a href="team.html">Team</a>
+    </div>
+    <div class="footer-copy">© 2026 Motorola Solutions, Inc.</div>
+  </div>
+</footer>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="features.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Features
+    </a>
+    <a href="mission.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mission
+    </a>
+    <a href="compare.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Compare
+    </a>
+    <a href="campaign.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Campaign
+    </a>
+    <a href="team.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+    </a>
+  </div>
+</nav>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Demo Request Received!';
+  btn.style.background = '#1b5e20';
+  btn.disabled = true;
+}
+</script>
+
+</body>
+</html>

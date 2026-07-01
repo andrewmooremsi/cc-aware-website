@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CC Aware — Home | Motorola Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Hero */
+    .hero { background: linear-gradient(135deg, #0a2e6e 0%, #0d47a1 50%, #1565c0 100%); display: flex; align-items: flex-start; padding-top: 88px; padding-bottom: 3rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(211,47,47,.18) 0%, transparent 70%), radial-gradient(ellipse 40% 80% at 20% 30%, rgba(21,101,192,.15) 0%, transparent 60%); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+    .hero-title { font-size: clamp(2.5rem, 5.5vw, 4rem); font-weight: 800; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero-title span { color: var(--red-light); }
+    .hero-sub { color: rgba(255,255,255,.45); font-size: .8rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .hero-desc { color: rgba(255,255,255,.72); font-size: 1.05rem; line-height: 1.75; margin-bottom: 2.5rem; max-width: 480px; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    /* Mock screen */
+    .hero-screen { width: 100%; max-width: 560px; background: #0a0a0a; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 60px rgba(183,28,28,.15); overflow: hidden; }
+    .hero-screen-bar { height: 32px; background: #1e1e1e; display: flex; align-items: center; padding: 0 1rem; gap: .5rem; }
+    .screen-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .sd-r { background: #ff5f57; } .sd-y { background: #febc2e; } .sd-g { background: #28c840; }
+    .hero-map { height: 320px; background: linear-gradient(160deg, #1a1005 0%, #150e04 30%, #1c1408 55%, #0f1a0a 80%, #0a1206 100%); position: relative; overflow: hidden; }
+    /* Terrain — scorched earth patches mixed with remaining green */
+    .hero-map::before { content: ''; position: absolute; inset: 0; background-image:
+      radial-gradient(ellipse 55% 45% at 38% 38%, rgba(180,80,10,.45) 0%, rgba(120,50,5,.2) 45%, transparent 70%),
+      radial-gradient(ellipse 35% 30% at 62% 62%, rgba(160,70,8,.35) 0%, rgba(100,40,5,.15) 45%, transparent 65%),
+      radial-gradient(ellipse 40% 35% at 15% 70%, rgba(30,60,10,.4) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 25% at 80% 20%, rgba(25,50,10,.35) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 20% at 55% 90%, rgba(35,55,15,.3) 0%, transparent 55%); }
+    /* Ember glow at fire center + contour lines */
+    .hero-map::after { content: ''; position: absolute; inset: 0; background-image:
+      radial-gradient(ellipse 25% 20% at 38% 32%, rgba(255,120,0,.25) 0%, transparent 60%),
+      repeating-linear-gradient(12deg, transparent, transparent 22px, rgba(100,70,20,.05) 22px, rgba(100,70,20,.05) 23px); }
+    /* Fire zones */
+    .map-fire-zone { position: absolute; width: 130px; height: 95px; border-radius: 55% 45% 60% 40% / 50% 55% 45% 50%; background: radial-gradient(ellipse, rgba(255,100,0,.35) 0%, rgba(203,51,59,.2) 45%, transparent 70%); border: 1.5px dashed rgba(255,100,0,.6); top: 14%; left: 28%; animation: fire-breathe 3s ease-in-out infinite; }
+    .map-fire-zone2 { position: absolute; width: 70px; height: 55px; border-radius: 50% 55% 45% 50%; background: radial-gradient(ellipse, rgba(255,120,0,.25) 0%, rgba(203,51,59,.12) 50%, transparent 70%); border: 1px dashed rgba(255,120,0,.45); top: 55%; left: 55%; animation: fire-breathe 4s ease-in-out infinite 1s; }
+    @keyframes fire-breathe { 0%,100% { transform: scale(1) rotate(0deg); opacity: .85; } 50% { transform: scale(1.07) rotate(1deg); opacity: 1; } }
+    .map-fire-label { position: absolute; top: 9%; left: 29%; font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #ff7b35; background: rgba(0,0,0,.75); padding: .15rem .4rem; border-radius: 2px; white-space: nowrap; }
+    /* Smoke overlay */
+    .map-smoke { position: absolute; width: 180px; height: 100px; top: 5%; left: 22%; background: radial-gradient(ellipse, rgba(120,110,80,.18) 0%, transparent 70%); animation: drift 8s ease-in-out infinite; border-radius: 50%; }
+    @keyframes drift { 0%,100% { transform: translateX(0) scaleX(1); } 50% { transform: translateX(18px) scaleX(1.1); } }
+    /* Roads — sparse, like mountain roads */
+    .map-road { position: absolute; background: rgba(220,200,140,.12); }
+    .road-h1 { top: 68%; left: 0; right: 0; height: 2px; transform: rotate(-1.5deg); }
+    .road-v1 { left: 62%; top: 0; bottom: 0; width: 2px; transform: rotate(1deg); }
+    /* Pins */
+    .map-pin { position: absolute; width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); }
+    .mp1 { background: #CB333B; top: 30%; left: 40%; }
+    .mp2 { background: #ff9800; top: 58%; left: 62%; }
+    .mp3 { background: #4caf50; top: 65%; left: 22%; }
+    .mp4 { background: #CB333B; top: 72%; left: 50%; }
+    .mp5 { background: #2196f3; top: 20%; left: 74%; }
+    .mp6 { background: #4caf50; top: 45%; left: 83%; }
+    /* Pulse rings */
+    .map-pulse { position: absolute; width: 36px; height: 36px; border-radius: 50%; border: 2px solid #CB333B; top: calc(30% - 12px); left: calc(40% - 12px); animation: pulse 2s infinite; }
+    .map-pulse2 { position: absolute; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #ff9800; top: calc(58% - 10px); left: calc(62% - 10px); animation: pulse 2.5s infinite .6s; }
+    @keyframes pulse { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(2.8); opacity: 0; } }
+    /* Moving units — fire trucks heading toward fire */
+    .map-unit { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #ff6d00; border: 2px solid white; box-shadow: 0 0 6px rgba(255,109,0,.6); top: 68%; left: 5%; animation: drive 9s linear infinite; }
+    .map-unit2 { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #2196f3; border: 2px solid white; box-shadow: 0 0 6px rgba(33,150,243,.5); top: 18%; left: 74%; animation: drive2 11s linear infinite 1.5s; }
+    @keyframes drive  { 0% { left: 5%; top: 68%; } 60% { left: 50%; top: 68%; } 85% { left: 50%; top: 50%; } 100% { left: 50%; top: 50%; } }
+    @keyframes drive2 { 0% { left: 74%; top: 18%; } 50% { left: 74%; top: 40%; } 75% { left: 60%; top: 40%; } 100% { left: 60%; top: 40%; } }
+    /* Route lines */
+    .map-route { position: absolute; top: 68%; left: 5%; width: 45%; height: 2px; background: linear-gradient(90deg, rgba(255,109,0,.7), rgba(255,109,0,.1)); }
+    .map-route2 { position: absolute; top: 18%; left: 74%; width: 2px; height: 22%; background: linear-gradient(180deg, rgba(33,150,243,.1), rgba(33,150,243,.7)); }
+    /* Labels */
+    .map-label { font-size: .6rem; color: rgba(255,255,255,.92); background: rgba(0,0,0,.75); padding: .18rem .4rem; border-radius: 3px; position: absolute; white-space: nowrap; border-left: 2px solid; }
+    .ml1 { top: 21%; left: 43%; border-color: #CB333B; }
+    .ml2 { top: 50%; left: 64%; border-color: #ff9800; }
+    .ml3 { top: 12%; left: 70%; border-color: #2196f3; }
+    .ml4 { top: 57%; left: 15%; border-color: #4caf50; }
+    /* Live incident popup */
+    .map-popup { position: absolute; bottom: 10px; right: 10px; background: rgba(8,14,6,.92); border: 1px solid rgba(255,100,0,.4); border-radius: 6px; padding: .5rem .75rem; min-width: 150px; }
+    .map-popup-title { font-size: .6rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #ff7b35; margin-bottom: .3rem; display: flex; align-items: center; gap: .35rem; }
+    .map-popup-dot { width: 6px; height: 6px; border-radius: 50%; background: #CB333B; animation: blink 1s infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .15; } }
+    .map-popup-row { font-size: .62rem; color: rgba(255,255,255,.65); margin-bottom: .15rem; display: flex; justify-content: space-between; gap: .75rem; }
+    .map-popup-row span { color: white; font-weight: 600; }
+    /* Camera feed badge */
+    .map-cam { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.8); border: 1px solid rgba(255,255,255,.12); border-radius: 5px; padding: .3rem .5rem; font-size: .58rem; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: .3rem; }
+    .map-cam::before { content: '●'; color: #4caf50; font-size: .5rem; animation: blink 1.5s infinite; }
+    /* ICEYE satellite overlay badge */
+    .map-sat { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.8); border: 1px solid rgba(33,150,243,.3); border-radius: 5px; padding: .3rem .5rem; font-size: .58rem; color: rgba(255,255,255,.6); }
+    /* Moving unit label — rides with the orange dot */
+    .map-unit-label { position: absolute; top: 68%; left: 5%; font-size: .55rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #ff9040; background: rgba(0,0,0,.75); padding: .12rem .35rem; border-radius: 2px; white-space: nowrap; transform: translate(14px, -10px); animation: drive 9s linear infinite; pointer-events: none; }
+    /* Map legend */
+    .map-legend { position: absolute; bottom: 10px; left: 10px; background: rgba(8,14,6,.88); border: 1px solid rgba(255,255,255,.1); border-radius: 5px; padding: .4rem .6rem; display: flex; flex-direction: column; gap: .22rem; }
+    .map-legend-row { display: flex; align-items: center; gap: .4rem; font-size: .55rem; color: rgba(255,255,255,.65); white-space: nowrap; }
+    .map-legend-dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.7); flex-shrink: 0; }
+    .hero-screen-data { background: #111; padding: .85rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+    .sdi { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px; padding: .55rem .7rem; }
+    .sdi-lbl { font-size: .6rem; color: #555; text-transform: uppercase; letter-spacing: .08em; }
+    .sdi-val { font-size: .9rem; font-weight: 700; color: var(--white); }
+    .ok { color: #4caf50; } .warn { color: #ff9800; } .crit { color: var(--red-light); }
+    /* What is it */
+    .what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .suite-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+    .suite-pill { background: var(--light); border: 1px solid var(--border); border-radius: 20px; padding: .35rem .9rem; font-size: .8rem; color: var(--mid); }
+    .suite-pill.active { background: var(--blue); border-color: var(--blue); color: white; }
+    .who-box { background: var(--light); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; }
+    .who-box h4 { font-size: .9rem; font-weight: 700; margin-bottom: .75rem; color: var(--blue); }
+    .who-box ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .who-box ul li { font-size: .87rem; color: var(--mid); display: flex; gap: .6rem; }
+    .who-box ul li::before { content: '→'; color: var(--blue); flex-shrink: 0; }
+    @media (max-width: 900px) {
+      .hero-grid, .what-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: block; margin-top: 1.5rem; }
+      .hero-screen { max-width: 100%; }
+      .hero-map { height: 220px; }
+      .map-legend { display: flex; flex-direction: row; flex-wrap: wrap; gap: .25rem .5rem; padding: .3rem .5rem; bottom: 6px; left: 6px; }
+      .map-legend-row { font-size: .5rem; }
+      .map-legend-dot { width: 6px; height: 6px; }
+      .map-popup { display: none; }
+      .map-unit-label { display: none; }
+      .map-label { display: none; }
+      .map-fire-label { font-size: .52rem; }
+      .map-label { font-size: .55rem; }
+    }
+    @media (max-width: 540px) {
+      .hero-map { height: 190px; }
+      .map-sat, .map-cam { font-size: .52rem; padding: .2rem .4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="motorola-logo.png" alt="Motorola Solutions" class="nav-logo-img" />
+      <div class="nav-logo-divider"></div>
+      <div><div class="nav-logo-text">CommandCentral Aware</div><div class="nav-logo-sub">Motorola Solutions</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="features.html">Features</a>
+      <a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a>
+      <a href="campaign.html">Campaign</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-cta">
+      <a href="campaign.html" class="btn btn--outline-white" style="padding:.5rem 1.1rem;font-size:.83rem;">Learn More</a>
+      <a href="team.html#cta" class="btn btn--red" style="padding:.5rem 1.1rem;font-size:.83rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-title">Seconds<br><span>Dictate</span><br>Lives</h1>
+        <div class="hero-sub">Motorola Solutions · Shark Tank 2026</div>
+        <p class="hero-desc">CommandCentral Aware is Motorola Solutions' cloud-native situational intelligence platform — unifying 911 CAD, live video, AI analytics, radio telemetry, and weather data into a single operational map for command centers.</p>
+        <div class="hero-ctas">
+          <a href="team.html#cta" class="btn btn--red">Request a Demo</a>
+          <a href="features.html" class="btn btn--outline-white">Explore Features</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-screen">
+          <div class="hero-screen-bar">
+            <div class="screen-dot sd-r"></div><div class="screen-dot sd-y"></div><div class="screen-dot sd-g"></div>
+            <span style="margin-left:.75rem;font-size:.7rem;color:#555;">CommandCentral Aware — Live Operations</span>
+          </div>
+          <div class="hero-map">
+            <!-- Smoke drift -->
+            <div class="map-smoke"></div>
+            <!-- Roads -->
+            <div class="map-road road-h1"></div>
+            <div class="map-road road-v1"></div>
+            <!-- Route lines -->
+            <div class="map-route"></div>
+            <div class="map-route2"></div>
+            <!-- Fire perimeters -->
+            <div class="map-fire-zone"></div>
+            <div class="map-fire-label">🔥 FIRE PERIMETER</div>
+            <!-- Pins -->
+            <div class="map-pin mp1"></div>
+
+            <div class="map-pin mp3"></div>
+            <div class="map-pin mp4"></div>
+            <div class="map-pin mp5"></div>
+            <div class="map-pin mp6"></div>
+            <!-- Pulse rings -->
+            <div class="map-pulse"></div>
+            <!-- Moving units (fire truck + drone) -->
+            <div class="map-unit"></div>
+            <div class="map-unit2"></div>
+            <!-- Labels -->
+            <div class="map-label ml1">INCIDENT ACTIVE</div>
+            <div class="map-label ml3">DRONE FEED LIVE</div>
+            <div class="map-label ml4">STAGING AREA</div>
+            <!-- Live incident popup -->
+            <div class="map-popup">
+              <div class="map-popup-title"><div class="map-popup-dot"></div>WILDFIRE INCIDENT</div>
+              <div class="map-popup-row">Units deployed <span>12</span></div>
+              <div class="map-popup-row">Wind speed <span>28 mph ⚠</span></div>
+              <div class="map-popup-row">Drone feeds <span>3 live</span></div>
+            </div>
+            <!-- Moving unit label -->
+            <div class="map-unit-label">FIRE UNIT</div>
+            <!-- Badges -->
+            <div class="map-cam">8 CAMS LIVE</div>
+            <div class="map-sat">🛰 ICEYE SAR</div>
+            <!-- Legend -->
+            <div class="map-legend">
+              <div class="map-legend-row"><div class="map-legend-dot" style="background:#ff6d00;"></div>Fire Unit En Route</div>
+              <div class="map-legend-row"><div class="map-legend-dot" style="background:#2196f3;"></div>Drone / Aerial</div>
+              <div class="map-legend-row"><div class="map-legend-dot" style="background:#CB333B;"></div>Incident</div>
+              <div class="map-legend-row"><div class="map-legend-dot" style="background:#4caf50;"></div>Staging / Safe</div>
+            </div>
+          </div>
+          <div class="hero-screen-data">
+            <div class="sdi"><div class="sdi-lbl">Units Live</div><div class="sdi-val ok">12 Active</div></div>
+            <div class="sdi"><div class="sdi-lbl">Incidents</div><div class="sdi-val warn">4 Open</div></div>
+            <div class="sdi"><div class="sdi-lbl">CAD Status</div><div class="sdi-val crit">1 Critical</div></div>
+            <div class="sdi"><div class="sdi-lbl">Camera Feeds</div><div class="sdi-val ok">8 Live</div></div>
+            <div class="sdi"><div class="sdi-lbl">Radio Units</div><div class="sdi-val ok">24 Online</div></div>
+            <div class="sdi"><div class="sdi-lbl">Weather</div><div class="sdi-val warn">High Wind</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Single Pane of Glass</span><span class="ticker-item">FedRAMP Authorized</span><span class="ticker-item">CJIS Compliant</span><span class="ticker-item">PremierOne CAD Integration</span><span class="ticker-item">Avigilon Video Analytics</span><span class="ticker-item">ICEYE Satellite Imagery</span><span class="ticker-item">AI Rules Engine</span><span class="ticker-item">Missions Workflows</span><span class="ticker-item">Drone as First Responder</span><span class="ticker-item">APX Radio Telemetry</span>
+    <span class="ticker-item">Single Pane of Glass</span><span class="ticker-item">FedRAMP Authorized</span><span class="ticker-item">CJIS Compliant</span><span class="ticker-item">PremierOne CAD Integration</span><span class="ticker-item">Avigilon Video Analytics</span><span class="ticker-item">ICEYE Satellite Imagery</span><span class="ticker-item">AI Rules Engine</span><span class="ticker-item">Missions Workflows</span><span class="ticker-item">Drone as First Responder</span><span class="ticker-item">APX Radio Telemetry</span>
+  </div>
+</div>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-num">1.5M</div><div class="stat-label">Acres Burned Annually in CA</div></div>
+      <div><div class="stat-num">435</div><div class="stat-label">CA Fire Depts — All Motorola Customers</div></div>
+      <div><div class="stat-num">60%</div><div class="stat-label">Fires in High-WUI Zones</div></div>
+      <div><div class="stat-num">15%</div><div class="stat-label">Target Demo Conversion Rate</div></div>
+      <div><div class="stat-num">$3K</div><div class="stat-label">Total Ad Budget</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS IT -->
+<section class="section" id="what">
+  <div class="container">
+    <div class="what-grid">
+      <div>
+        <div class="tag">What Is CommandCentral Aware?</div>
+        <h2 class="section-title">The Brain of the Command Center</h2>
+        <p style="color:var(--gray);font-size:.97rem;line-height:1.75;margin-bottom:1.1rem;">CommandCentral Aware is Motorola Solutions' cloud-based situational awareness and operations management platform. It aggregates data from CAD systems, radio networks, video cameras, IoT sensors, weather APIs, and AI analytics into a single browser-based geospatial map.</p>
+        <p style="color:var(--gray);font-size:.97rem;line-height:1.75;margin-bottom:1.1rem;">Designed for 911 dispatch centers, Real-Time Crime Centers (RTCCs), and multi-agency command posts, CC Aware replaces fragmented multi-screen workflows. It is part of the broader <strong>CommandCentral Suite</strong> — Motorola's end-to-end command center software platform.</p>
+        <p style="color:var(--gray);font-size:.97rem;line-height:1.75;">Because Motorola already supplies radios, cameras, and CAD systems to most US public safety agencies, CC Aware layers on as a cloud software upgrade — not a rip-and-replace.</p>
+      </div>
+      <div>
+        <div class="cert-badges">
+          <div class="cert-badge"><span class="cert-badge-icon">🔒</span><div><div class="cert-badge-title">FedRAMP Authorized</div><div class="cert-badge-sub">Moderate Impact Level</div></div></div>
+          <div class="cert-badge"><span class="cert-badge-icon">🛡️</span><div><div class="cert-badge-title">CJIS Compliant</div><div class="cert-badge-sub">Criminal Justice Info. Security</div></div></div>
+          <div class="cert-badge"><span class="cert-badge-icon">☁️</span><div><div class="cert-badge-title">Cloud-Native SaaS</div><div class="cert-badge-sub">Browser-Based, No Client Install</div></div></div>
+          <div class="cert-badge"><span class="cert-badge-icon">🗺️</span><div><div class="cert-badge-title">ESRI ArcGIS Layers</div><div class="cert-badge-sub">Live Geospatial Map Platform</div></div></div>
+          <div class="cert-badge"><span class="cert-badge-icon">🔗</span><div><div class="cert-badge-title">Open REST APIs</div><div class="cert-badge-sub">Third-Party System Integration</div></div></div>
+          <div class="cert-badge"><span class="cert-badge-icon">📡</span><div><div class="cert-badge-title">RTSP Video Streams</div><div class="cert-badge-sub">Multi-Source Camera Ingestion</div></div></div>
+        </div>
+        <div class="who-box">
+          <h4>Who Uses It?</h4>
+          <ul>
+            <li>911 Dispatch Centers &amp; Emergency Communication Centers (ECCs)</li>
+            <li>Real-Time Crime Centers (RTCCs) — Police Departments</li>
+            <li>Fire Departments &amp; Wildfire Incident Command Posts</li>
+            <li>Transit Agencies &amp; Campus Security Operations</li>
+            <li>Multi-Agency Joint Operations Centers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV CTA STRIP -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Explore CC Aware In Depth</h2>
+    <p>Dive into the features, mission phases, competitive comparison, and the 4-phase go-to-market campaign.</p>
+    <div class="cta-btns">
+      <a href="features.html" class="btn btn--white">View Features</a>
+      <a href="mission.html" class="btn btn--outline-white">Mission Phases</a>
+      <a href="compare.html" class="btn btn--outline-white">Compare vs. Axon</a>
+      <a href="campaign.html" class="btn btn--outline-white">Campaign</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo"><img src="motorola-logo.png" alt="Motorola Solutions" class="footer-logo-img" /><div><div style="color:rgba(255,255,255,.8);font-weight:700;font-size:.9rem;">CommandCentral Aware</div><div style="font-size:.72rem;">Motorola Solutions</div></div></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a><a href="campaign.html">Campaign</a><a href="team.html">Team</a>
+    </div>
+    <div class="footer-copy">© 2026 Motorola Solutions, Inc.</div>
+  </div>
+</footer>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="features.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Features
+    </a>
+    <a href="mission.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mission
+    </a>
+    <a href="compare.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Compare
+    </a>
+    <a href="campaign.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Campaign
+    </a>
+    <a href="team.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>

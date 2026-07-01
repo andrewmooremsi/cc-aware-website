@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — CC Aware | Motorola Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
+    .edge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .edge-card { background: #1e1e1e; border: 1px solid #2e2e2e; border-radius: 12px; padding: 2rem; }
+    .edge-label { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: #ef5350; margin-bottom: .6rem; }
+    .edge-card h3 { color: var(--white); margin-bottom: 1.25rem; font-size: 1.1rem; }
+    .edge-list { list-style: none; display: flex; flex-direction: column; gap: .85rem; }
+    .edge-list li { display: flex; gap: .75rem; align-items: flex-start; font-size: .88rem; color: rgba(255,255,255,.8); }
+    .edge-list li .arr { color: var(--red-light); font-weight: 700; flex-shrink: 0; }
+    .iceye-callout { margin-top: 2rem; background: linear-gradient(90deg,#0a2040,#0d3470); border: 1px solid #1a3a6e; border-radius: 12px; padding: 2rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+    .int-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .int-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; text-align: center; }
+    .int-card .int-icon { font-size: 1.6rem; margin-bottom: .6rem; }
+    .int-card h5 { font-size: .85rem; font-weight: 600; margin-bottom: .2rem; }
+    .int-card p  { font-size: .75rem; color: var(--gray); }
+    @media (max-width: 900px) {
+      .features-grid, .edge-grid { grid-template-columns: 1fr; }
+      .int-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 540px) { .int-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="motorola-logo.png" alt="Motorola Solutions" class="nav-logo-img" />
+      <div class="nav-logo-divider"></div>
+      <div><div class="nav-logo-text">CommandCentral Aware</div><div class="nav-logo-sub">Motorola Solutions</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a>
+      <a href="campaign.html">Campaign</a>
+      <a href="team.html">Team</a>
+    </div>
+    <div class="nav-cta">
+      <a href="campaign.html" class="btn btn--outline-white" style="padding:.5rem 1.1rem;font-size:.83rem;">Learn More</a>
+      <a href="team.html#cta" class="btn btn--red" style="padding:.5rem 1.1rem;font-size:.83rem;">Request Demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <div class="page-hero-eyebrow">CommandCentral Aware</div>
+    <h1>Core <span>Features</span> &amp;<br>Competitive Edge</h1>
+    <p>Four foundational pillars — plus two proprietary capabilities that no competitor can replicate out of the box.</p>
+    <div class="page-hero-btns">
+      <a href="mission.html" class="btn btn--red">See Mission Phases</a>
+      <a href="compare.html" class="btn btn--outline-white">Compare vs. Axon</a>
+    </div>
+  </div>
+</div>
+
+<!-- CORE FEATURES -->
+<section class="section">
+  <div class="container">
+    <div class="tag">Core Features</div>
+    <h2 class="section-title">Four Pillars of CC Aware</h2>
+    <p class="section-subtitle">Built for the speed and complexity of modern public safety — each pillar addresses a critical gap in legacy command center operations.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <h3>Single Pane of Glass</h3>
+        <p>A unified browser-based geospatial map (built on ESRI ArcGIS) aggregates 911 CAD data, GPS unit positions from APX radios, live weather radar (including fire weather layers), LPR hits, and IoT sensor feeds simultaneously. Analysts see everything — no tab switching, no screen juggling.</p>
+        <div class="feature-tags">
+          <span class="ftag">ESRI ArcGIS</span><span class="ftag">PremierOne CAD</span><span class="ftag">AVL / GPS</span><span class="ftag">Weather Overlay</span><span class="ftag">LPR</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <h3>Enhanced View — Live Video</h3>
+        <p>Merges feeds from Avigilon fixed cameras, body-worn cameras (M500, V700, SVX), in-car video, and drone streams directly onto the map. Operators click any camera icon to pull the live feed. Drone-as-First-Responder programs stream aerial video before ground units arrive.</p>
+        <div class="feature-tags">
+          <span class="ftag">Avigilon</span><span class="ftag">M500 / V700</span><span class="ftag">Drone DFR</span><span class="ftag">RTSP Streams</span><span class="ftag">Body Cam</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <h3>AI Assist &amp; Rules Engine</h3>
+        <p>Avigilon AI analytics detect events — gunshots, crowds, vehicles of interest — and instantly trigger Rules Engine responses: surfacing the nearest camera feeds, alerting supervisors, and launching Missions workflows. Drastically reduces analyst cognitive load during high-stress incidents.</p>
+        <div class="feature-tags">
+          <span class="ftag">Avigilon Analytics</span><span class="ftag">Rules Engine</span><span class="ftag">Auto Camera Pull</span><span class="ftag">Rave Panic Button</span><span class="ftag">ShotSpotter</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <h3>Cloud-Based &amp; Secure</h3>
+        <p>FedRAMP Authorized (Moderate) and CJIS-compliant cloud architecture. Accessible from any device with a browser — including mobile. Meets the federal security standards required for criminal justice data. No client software to install or maintain, enabling fast deployment.</p>
+        <div class="feature-tags">
+          <span class="ftag">FedRAMP Moderate</span><span class="ftag">CJIS Compliant</span><span class="ftag">Multi-Device</span><span class="ftag">REST APIs</span><span class="ftag">Multi-Agency Share</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITIVE EDGE -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="tag">Competitive Edge</div>
+    <h2 class="section-title" style="color:var(--white);">What Sets CC Aware Apart</h2>
+    <p class="section-subtitle">Two proprietary capabilities no competitor offers natively — built from Motorola's closed-loop hardware-software ecosystem.</p>
+    <div class="edge-grid">
+      <div class="edge-card">
+        <div class="edge-label">Rules Engine</div>
+        <h3>Automated Intelligence at Incident Speed</h3>
+        <ul class="edge-list">
+          <li><span class="arr">→</span><span><strong style="color:white;">Instant Rule Triggering</strong> — When a Rave Panic Button is pressed, a ShotSpotter alert fires, or a CAD incident is created, a pre-configured rule activates immediately — no dispatcher action required.</span></li>
+          <li><span class="arr">→</span><span><strong style="color:white;">Auto Camera Pull</strong> — The nearest live camera feeds are instantly surfaced on the operator's screen, correlated by GPS distance to the incident location.</span></li>
+          <li><span class="arr">→</span><span><strong style="color:white;">Cognitive Relief</strong> — Analysts monitoring 20+ feeds are guided by automated prioritization, reducing decision fatigue and response errors during high-pressure incidents.</span></li>
+          <li><span class="arr">→</span><span><strong style="color:white;">Customizable per Agency</strong> — Each agency configures its own rule library based on local incident types, geography, and operational protocols.</span></li>
+        </ul>
+      </div>
+      <div class="edge-card">
+        <div class="edge-label">Missions Feature</div>
+        <h3>Orchestrated Multi-Agency Response</h3>
+        <ul class="edge-list">
+          <li><span class="arr">→</span><span><strong style="color:white;">Standardized Workflows</strong> — Pre-built mission templates guide analysts through the right steps for each incident type — wildfire, active shooter, pursuit — in real time.</span></li>
+          <li><span class="arr">→</span><span><strong style="color:white;">Resource Tracking</strong> — Field unit GPS positions, assignments, and status updates tracked live within the mission view — no radio check-ins required.</span></li>
+          <li><span class="arr">→</span><span><strong style="color:white;">AI Rules Embedded</strong> — AI Assist functions are wired directly into active mission workflows, not bolted on separately.</span></li>
+          <li><span class="arr">→</span><span><strong style="color:white;">ROI-Proof Summary Logs</strong> — Every mission auto-generates a comprehensive after-action log, giving agencies auditable data for budget reviews and grant applications.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="iceye-callout">
+      <div style="font-size:2.5rem;">🛰️</div>
+      <div style="flex:1;min-width:240px;">
+        <div style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#ef5350;margin-bottom:.4rem;">New Integration</div>
+        <h4 style="color:white;font-size:1.05rem;margin-bottom:.5rem;">ICEYE SAR Satellite Imagery</h4>
+        <p style="color:rgba(255,255,255,.7);font-size:.88rem;line-height:1.65;">Motorola Solutions partnered with ICEYE to integrate Synthetic Aperture Radar (SAR) satellite imagery directly into CC Aware. SAR sees through smoke, darkness, and cloud cover — giving incident commanders real-time fire perimeter data even when aerial assets are grounded. Critical for California wildfire command.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="section section--light" id="integrations">
+  <div class="container">
+    <div class="tag">Integrations</div>
+    <h2 class="section-title">Third-Party &amp; API Integrations</h2>
+    <p class="section-subtitle">CC Aware connects to the tools agencies already use — via native integrations and open REST APIs.</p>
+    <div class="int-grid">
+      <div class="int-card"><div class="int-icon">🛰️</div><h5>ICEYE SAR</h5><p>Satellite fire perimeter imagery through smoke &amp; cloud</p></div>
+      <div class="int-card"><div class="int-icon">🗺️</div><h5>ESRI ArcGIS</h5><p>Geospatial map layers and spatial analytics</p></div>
+      <div class="int-card"><div class="int-icon">🔫</div><h5>ShotSpotter</h5><p>Gunshot detection alerts wired to Rules Engine</p></div>
+      <div class="int-card"><div class="int-icon">🌤️</div><h5>Weather APIs</h5><p>Live radar, fire weather, wind speed overlays</p></div>
+      <div class="int-card"><div class="int-icon">📟</div><h5>PremierOne CAD</h5><p>Native Motorola CAD — real-time incident data feed</p></div>
+      <div class="int-card"><div class="int-icon">📲</div><h5>Rave Alert</h5><p>Mass notification &amp; evacuation alert system</p></div>
+      <div class="int-card"><div class="int-icon">🔗</div><h5>REST API</h5><p>Open APIs for custom agency integrations</p></div>
+      <div class="int-card"><div class="int-icon">📺</div><h5>RTSP Streams</h5><p>Third-party IP camera ingestion</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>See These Features Live</h2>
+    <p>Visit the Experience Center for a hands-on demonstration of CC Aware in a simulated wildfire scenario.</p>
+    <div class="cta-btns">
+      <a href="team.html#cta" class="btn btn--white">Request a Demo</a>
+      <a href="mission.html" class="btn btn--outline-white">View Mission Phases →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo"><img src="motorola-logo.png" alt="Motorola Solutions" class="footer-logo-img" /><div><div style="color:rgba(255,255,255,.8);font-weight:700;font-size:.9rem;">CommandCentral Aware</div><div style="font-size:.72rem;">Motorola Solutions</div></div></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a><a href="features.html">Features</a><a href="mission.html">Mission</a>
+      <a href="compare.html">Compare</a><a href="campaign.html">Campaign</a><a href="team.html">Team</a>
+    </div>
+    <div class="footer-copy">© 2026 Motorola Solutions, Inc.</div>
+  </div>
+</footer>
+
+<nav class="mobile-nav">
+  <div class="mobile-nav-inner">
+    <a href="index.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="features.html" class="mobile-nav-item active">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Features
+    </a>
+    <a href="mission.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mission
+    </a>
+    <a href="compare.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Compare
+    </a>
+    <a href="campaign.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Campaign
+    </a>
+    <a href="team.html" class="mobile-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>
